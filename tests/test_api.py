@@ -1,19 +1,9 @@
 from decimal import Decimal
 from typing import Any, Dict, List, Optional
 
-import pytest
 from dotenv import load_dotenv
 
-from src.config import Config
 from src.db_manager import DBManager
-
-
-@pytest.fixture
-def db_manager() -> DBManager:
-    """Фикстура, возвращающая экземпляр DBManager."""
-    config: Config = Config()
-    return DBManager(config)
-
 
 load_dotenv()
 

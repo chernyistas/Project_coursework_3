@@ -90,15 +90,18 @@ def show_menu(db_manager: DBManager) -> None:
             high_salary_vacancies = db_manager.get_vacancies_with_higher_salary()
             print(f"\nВакансии выше средней зарплаты ({len(high_salary_vacancies)}):")
             for vac in high_salary_vacancies[:20]:
-                print(f"{vac['company_name']} | {vac['name']} | {vac['salary_from']:,}₽+")
-
+                salary_from = vac["salary_from"]
+                if salary_from is None:
+                    salary_str = "Зарплата не указана"
+                else:
+                    salary_str = f"{salary_from:,}₽+"
+                print(f"{vac['company_name']} | {vac['name']} | {salary_str}")
         elif choice == "5":
             keyword = input("Введите ключевое слово: ").strip()
             keyword_vacancies = db_manager.get_vacancies_with_keyword(keyword)
             print(f"\nВакансии с '{keyword}' ({len(keyword_vacancies)}):")
             for vac in keyword_vacancies:
                 print(f"{vac['company_name']} | {vac['name']}")
-
         elif choice == "0":
             logger.info("Приложение завершено")
             break
